@@ -1,42 +1,35 @@
 // 1. Declare a Provider
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:isar/isar.dart';
 import 'package:prenom/firstname.dart';
 
 import 'firstnames_repository.dart';
 
-final currentProductItem = Provider<FirstName>((_) => throw UnimplementedError());
+final currentProductItem =
+    Provider<FirstName>((_) => throw UnimplementedError());
 
 class ProductList extends ConsumerWidget {
-
   const ProductList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-     return ref.watch(fetchFirstNamesProvider).when(
-       data: (item) => RefreshIndicator(
-         onRefresh: ()  => ref.refresh(fetchFirstNamesProvider.future),
-         child: ListView.builder(
-             itemCount: item.length,
-             itemBuilder: (context, index) {
-               // 2. Add a parent ProviderScope
-               return ProviderScope(
-                 overrides: [
-                   // 3. Add a dependency override on the index
-                   currentProductItem.overrideWithValue(item[index]),
-                 ],
-                 // 4. return a **const** ProductItem with no constructor arguments
-                 child:  const ProductItem(),
-                 // This is better for performance because we can create ProductItem as
-                 // a const widget in the ListView.builder. So even if the ListView
-                 // rebuilds, our ProductItem will not rebuild unless its index has changed.
-               );
-             }),
-       ),
-       loading: () => const Center(child: CircularProgressIndicator()),
-       error: (e, st) => Center(child: Text(e.toString())),
-     );
+    var items = ref.watch(fetchFirstNamesProvider);
+    return ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          // 2. Add a parent ProviderScope
+          return ProviderScope(
+            overrides: [
+              // 3. Add a dependency override on the index
+              currentProductItem.overrideWithValue(items[index]),
+            ],
+            // 4. return a **const** ProductItem with no constructor arguments
+            child: const ProductItem(),
+            // This is better for performance because we can create ProductItem as
+            // a const widget in the ListView.builder. So even if the ListView
+            // rebuilds, our ProductItem will not rebuild unless its index has changed.
+          );
+        });
   }
 }
 
@@ -46,7 +39,6 @@ class ProductItem extends ConsumerWidget {
   // we can use to watch our provider.
 
   const ProductItem({super.key});
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

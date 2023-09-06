@@ -4,13 +4,22 @@ part 'firstname.g.dart';
 
 @Collection()
 class FirstName {
-  Id? id;
 
-  @Index(type: IndexType.hash)
-  late String firstname;
-  late String firstnameWithoutDiacritics;
-  late int intention;
-  late int sex;
+  FirstName({
+    required this.id,
+    required this.firstname,
+    required this.firstnameWithoutDiacritics,
+    required this.intention,
+    required this.sex
+  });
+
+  // String get id => '$firstname$sex';
+  final String id;
+
+  final String firstname;
+  final String firstnameWithoutDiacritics;
+  final int intention;
+  final int sex;
 
 }
 

@@ -36,8 +36,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_riverpod: ^2.3.6
-  isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
+  isar: 4.0.0-dev.14
+  isar_flutter_libs: 4.0.0-dev.14
   path_provider: ^2.1.0
   # the annotation package containing @riverpod
   riverpod_annotation: ^2.1.2
@@ -52,15 +52,17 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
-  isar_generator: ^3.1.0+1
-  build_runner: ^2.4.6
+#  isar_generator: ^3.1.0+1
   # the code generator
   riverpod_generator: ^2.2.6
   # riverpod_lint makes it easier to work with Riverpod
   riverpod_lint: ^2.0.1
   # import custom_lint too as riverpod_lint depends on it
   custom_lint: ^0.5.2
+  build_runner: ^2.4.6
+  copy_with_extension_gen: ^5.0.3
+  json_serializable: ^6.7.1
+  flutter_lints: ^2.0.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

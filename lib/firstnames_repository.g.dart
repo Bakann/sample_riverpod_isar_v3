@@ -23,12 +23,11 @@ final firstNamesRepositoryProvider =
 );
 
 typedef FirstNamesRepositoryRef = AutoDisposeProviderRef<FirstNamesRepository>;
-String _$fetchFirstNamesHash() => r'37cbf059467fc1f65a809d370219e4b6d8a684fc';
+String _$fetchFirstNamesHash() => r'07c1e01b5aae78f3cec8652cc687b599db520cb2';
 
 /// See also [fetchFirstNames].
 @ProviderFor(fetchFirstNames)
-final fetchFirstNamesProvider =
-    AutoDisposeFutureProvider<List<FirstName>>.internal(
+final fetchFirstNamesProvider = AutoDisposeProvider<List<FirstName>>.internal(
   fetchFirstNames,
   name: r'fetchFirstNamesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -38,12 +37,12 @@ final fetchFirstNamesProvider =
   allTransitiveDependencies: null,
 );
 
-typedef FetchFirstNamesRef = AutoDisposeFutureProviderRef<List<FirstName>>;
-String _$countFirstNamesHash() => r'1d291e55fba8aa142265cccca605f16d781f9af0';
+typedef FetchFirstNamesRef = AutoDisposeProviderRef<List<FirstName>>;
+String _$countFirstNamesHash() => r'5400964f7ac9ad91f7a061f84a36d9da86d78073';
 
 /// See also [countFirstNames].
 @ProviderFor(countFirstNames)
-final countFirstNamesProvider = AutoDisposeFutureProvider<int>.internal(
+final countFirstNamesProvider = AutoDisposeProvider<int>.internal(
   countFirstNames,
   name: r'countFirstNamesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -53,9 +52,9 @@ final countFirstNamesProvider = AutoDisposeFutureProvider<int>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef CountFirstNamesRef = AutoDisposeFutureProviderRef<int>;
+typedef CountFirstNamesRef = AutoDisposeProviderRef<int>;
 String _$deleteAllFirstNamesHash() =>
-    r'0d9d9bad7971b3e1fb2ca22eef8e0a91f3561ab2';
+    r'7689371e1c8d3a227780e9c484ed0ca8de94b07e';
 
 /// See also [deleteAllFirstNames].
 @ProviderFor(deleteAllFirstNames)
@@ -71,4 +70,4 @@ final deleteAllFirstNamesProvider = AutoDisposeFutureProvider<void>.internal(
 
 typedef DeleteAllFirstNamesRef = AutoDisposeFutureProviderRef<void>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

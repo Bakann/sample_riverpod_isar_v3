@@ -3,13 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:isar/isar.dart';
 import 'package:prenom/firstname.dart';
 
 import 'firstnames_repository.dart';
 
 class LoadFirstNames extends ConsumerStatefulWidget {
-
   const LoadFirstNames({super.key});
 
   @override
@@ -49,15 +47,15 @@ class _LoadFirstNamesState extends ConsumerState<LoadFirstNames> {
   }
 
   void loadFirstNames() async {
-
     try {
       final bytes = await rootBundle.load('assets/girls.json');
       final jsonStr = const Utf8Decoder().convert(bytes.buffer.asUint8List());
       final json = jsonDecode(jsonStr) as List;
 
-      ref.watch(firstNamesRepositoryProvider).isar.writeTxn(() async {
+      ref.watch(firstNamesRepositoryProvider).isar.write((isar) {
         List<Map<String, dynamic>> list = json
             .map((e) => {
+                  'id': e['firstname'],
                   'sex': int.parse(e['sex']),
                   'intention': int.parse(e['intention']),
                   'firstname': e['firstname'],
@@ -65,12 +63,11 @@ class _LoadFirstNamesState extends ConsumerState<LoadFirstNames> {
                 })
             .toList();
 
-        await ref.watch(firstNamesRepositoryProvider).isar.firstNames.importJson(
-          list,
-        );
+        ref.watch(firstNamesRepositoryProvider).isar.firstNames.importJson(
+              list,
+            );
         ref.invalidate(firstNamesRepositoryProvider);
       });
-
     } catch (e) {
       print(e);
       setState(() {

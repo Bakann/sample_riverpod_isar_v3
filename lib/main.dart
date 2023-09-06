@@ -1,29 +1,24 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:prenom/firstname.dart';
 import 'package:prenom/loadNames.dart';
 
 import 'firstnames_list.dart';
 import 'firstnames_provider.dart';
 import 'firstnames_repository.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Isar.initialize();
 
-  final isar;
-  if(kIsWeb){
-    isar = await Isar.open([FirstNameSchema], directory: '');
-  }
-  else{
-    final dir = await getApplicationDocumentsDirectory();
-    isar = await Isar.open([FirstNameSchema], directory: dir.path);
-  }
+  final Isar isar = Isar.open(
+      schemas: [FirstNameSchema],
+      directory: Isar.sqliteInMemory,
+      engine: IsarEngine.sqlite);
 
   usePathUrlStrategy();
   runApp(
@@ -53,13 +48,12 @@ class MyApp extends ConsumerWidget {
         builder: (context, state) => const ProductsListPage(),
       )
     ]);
-    return  MaterialApp.router(
+    return MaterialApp.router(
       title: title,
       routerConfig: goRouter,
       // home: ProductsListPage(),
     );
   }
-
 }
 
 class ProductsListPage extends ConsumerWidget {
@@ -67,7 +61,7 @@ class ProductsListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int? count = ref.watch(countFirstNamesProvider).value;
+    int? count = ref.watch(countFirstNamesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -88,4 +82,3 @@ class ProductsListPage extends ConsumerWidget {
     );
   }
 }
-
